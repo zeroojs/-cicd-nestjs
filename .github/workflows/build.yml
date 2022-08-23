@@ -30,11 +30,11 @@ jobs:
           connect_timeout: 30s
           local: './dist/*' # 源路径（工作流）
           remote: /www/wwwroot/cicd-nestjs.zeroojs.com/app/dist # 目标路径（服务器）
-          scp: |
-            ./package.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
-            ./tsconfig.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
-            ./nest-cli.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
-            ./tsconfig.build.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
+          # scp: |
+          #   ./package.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
+          #   ./tsconfig.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
+          #   ./nest-cli.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
+          #   ./tsconfig.build.json => "/www/wwwroot/cicd-nestjs.zeroojs.com/app"
       # 在服务器端执行相关指令
       - name: Executing remote ssh commands
         uses: appleboy/ssh-action@master
@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.HOST_USER }} # 服务器用户名
           password: ${{ secrets.HOST_PASS }} # 服务器密码
           script: |
-            cd /www/wwwroot/cicd-nestjs.zeroojs.com/app # 进入服务器中的端工程所在的目录
-            yarn --production # 安装项目依赖
+            cd /www/wwwroot/cicd-nestjs.zeroojs.com/app/dist # 进入服务器中的端工程所在的目录
+            # yarn --production # 安装项目依赖
             pm2 delete cicd_nestjs_3006 # 删除旧的进程
-            pm2 start --name cicd_nestjs_3006 npm -- run start:prod # 启动新的进程
+            pm2 start --name cicd_nestjs_3006 src/main.js # 启动新的进程
