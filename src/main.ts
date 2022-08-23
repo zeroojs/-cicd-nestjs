@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-08-23 13:29:18
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-08-23 17:21:24
+ * @LastEditTime: 2022-08-23 20:47:50
  */
 const os = require('os');
 import { NestFactory } from '@nestjs/core';
@@ -13,11 +13,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = 3006;
-  const { intranet, extranet } = getAddress()
+  // const { intranet, extranet } = getAddress()
   await app.listen(port);
   console.log(`\nhttp://localhost:${port}`)
-  console.log(`http://${intranet}:${port}`)
-  console.log(`http://${extranet}:${port}`)
+  // console.log(`http://${intranet}:${port}`)
+  // console.log(`http://${extranet}:${port}`)
 }
 bootstrap();
 
