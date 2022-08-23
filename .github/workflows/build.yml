@@ -44,6 +44,6 @@ jobs:
           password: ${{ secrets.HOST_PASS }} # 服务器密码
           script: |
             cd /www/wwwroot/cicd-nestjs.zeroojs.com/app/dist # 进入服务器中的端工程所在的目录
-            # yarn --production # 安装项目依赖
+            yarn --production # 安装项目依赖
             pm2 delete cicd_nestjs_3006 # 删除旧的进程
             pm2 start --name cicd_nestjs_3006 src/main.js # 启动新的进程
